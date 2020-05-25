@@ -1,0 +1,11 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\android\AndroidStudioProjects\DeezerPlayer\album\src\main\AndroidManifest.xml:1:1-2:53
+INJECTED from D:\android\AndroidStudioProjects\DeezerPlayer\album\src\main\AndroidManifest.xml:1:1-2:53
+INJECTED from D:\android\AndroidStudioProjects\DeezerPlayer\album\src\main\AndroidManifest.xml:1:1-2:53
+	package
+		ADDED from D:\android\AndroidStudioProjects\DeezerPlayer\album\src\main\AndroidManifest.xml:2:5-50
+		INJECTED from D:\android\AndroidStudioProjects\DeezerPlayer\album\src\main\AndroidManifest.xml
+		INJECTED from D:\android\AndroidStudioProjects\DeezerPlayer\album\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\android\AndroidStudioProjects\DeezerPlayer\album\src\main\AndroidManifest.xml:1:11-69

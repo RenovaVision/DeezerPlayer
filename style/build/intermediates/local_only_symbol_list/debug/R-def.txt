@@ -1,0 +1,9 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color grey_4a
+color red
+color white
+color white_f4
+font avenir_medium
+style ToolBarTitle

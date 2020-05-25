@@ -1,0 +1,13 @@
+R_DEF: Internal format may change without notice
+local
+id artistName
+id error_message_view
+id imageView
+id retry_button
+id trackImage
+id trackName
+layout artist_view
+layout error_message_view
+layout player_info_view
+layout track_view
+string retry
