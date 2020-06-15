@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/nav_top_artists"
-        android:name="com.renovavision.deezerplayer.artist.presentation.topartists.TopArtistsFragment"
+        android:name="com.renovavision.deezerplayer.artist.topartists.TopArtistsFragment"
         android:label="Top Artists">
 
         <action
@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/nav_artist"
-        android:name="com.renovavision.deezerplayer.artist.presentation.artistinfo.ArtistFragment"
+        android:name="com.renovavision.deezerplayer.artist.artistinfo.ArtistFragment"
         android:label="Artist">
 
         <argument

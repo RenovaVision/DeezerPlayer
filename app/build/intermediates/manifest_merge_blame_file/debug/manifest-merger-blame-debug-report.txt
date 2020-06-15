@@ -24,7 +24,7 @@
 18        android:allowBackup="true"
 18-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:9:9-35
 19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-19-->[androidx.core:core:1.2.0] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\657f245d00e4e5fbf1aadebfd5a80279\core-1.2.0\AndroidManifest.xml:24:18-86
+19-->[androidx.core:core:1.2.0] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\e5054f6b025532e28097b68e50299d06\core-1.2.0\AndroidManifest.xml:24:18-86
 20        android:debuggable="true"
 21        android:icon="@mipmap/ic_launcher"
 21-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:10:9-43
@@ -34,35 +34,34 @@
 23-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:12:9-54
 24        android:supportsRtl="true"
 24-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:13:9-35
-25        android:testOnly="true"
-26        android:theme="@style/AppTheme" >
-26-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:14:9-40
-27        <activity
-27-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:15:9-24:20
-28            android:name="com.renovavision.deezerplayer.activity.MainActivity"
-28-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:16:13-79
-29            android:theme="@style/SplashTheme" >
-29-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:17:13-47
-30            <intent-filter>
-30-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:19:13-23:29
-31                <action android:name="android.intent.action.MAIN" />
-31-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:20:17-69
-31-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:20:25-66
-32
-33                <category android:name="android.intent.category.LAUNCHER" />
-33-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:22:17-77
-33-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:22:27-74
-34            </intent-filter>
-35        </activity>
-36
-37        <provider
-37-->[com.squareup.picasso:picasso:2.71828] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\9e2585107254b5c13725edb4ca469a7f\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
-38            android:name="com.squareup.picasso.PicassoProvider"
-38-->[com.squareup.picasso:picasso:2.71828] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\9e2585107254b5c13725edb4ca469a7f\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
-39            android:authorities="com.renovavision.deezerplayer.com.squareup.picasso"
-39-->[com.squareup.picasso:picasso:2.71828] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\9e2585107254b5c13725edb4ca469a7f\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
-40            android:exported="false" />
-40-->[com.squareup.picasso:picasso:2.71828] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\9e2585107254b5c13725edb4ca469a7f\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
-41    </application>
-42
-43</manifest>
+25        android:theme="@style/AppTheme" >
+25-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:14:9-40
+26        <activity
+26-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:15:9-24:20
+27            android:name="com.renovavision.deezerplayer.activity.MainActivity"
+27-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:16:13-79
+28            android:theme="@style/SplashTheme" >
+28-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:17:13-47
+29            <intent-filter>
+29-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:19:13-23:29
+30                <action android:name="android.intent.action.MAIN" />
+30-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:20:17-69
+30-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:20:25-66
+31
+32                <category android:name="android.intent.category.LAUNCHER" />
+32-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:22:17-77
+32-->D:\android\AndroidStudioProjects\DeezerPlayer\app\src\main\AndroidManifest.xml:22:27-74
+33            </intent-filter>
+34        </activity>
+35
+36        <provider
+36-->[com.squareup.picasso:picasso:2.71828] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\2aa2c1a7882ffd5b7f0211af479aa4bd\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+37            android:name="com.squareup.picasso.PicassoProvider"
+37-->[com.squareup.picasso:picasso:2.71828] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\2aa2c1a7882ffd5b7f0211af479aa4bd\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+38            android:authorities="com.renovavision.deezerplayer.com.squareup.picasso"
+38-->[com.squareup.picasso:picasso:2.71828] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\2aa2c1a7882ffd5b7f0211af479aa4bd\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+39            android:exported="false" />
+39-->[com.squareup.picasso:picasso:2.71828] C:\Users\alexg\.gradle\caches\transforms-2\files-2.1\2aa2c1a7882ffd5b7f0211af479aa4bd\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+40    </application>
+41
+42</manifest>

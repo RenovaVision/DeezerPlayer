@@ -1,5 +1,11 @@
 R_DEF: Internal format may change without notice
 local
+color black
+color grey_4a
+color red
+color white
+color white_f4
+font avenir_medium
 id artistName
 id error_message_view
 id imageView
@@ -11,3 +17,4 @@ layout error_message_view
 layout player_info_view
 layout track_view
 string retry
+style ToolBarTitle

@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.renovavision.deezerplayer.domain.entities.PlayerModel
-import com.renovavision.deezerplayer.domain.entities.TopTracksEntity.TrackEntity
+import com.renovavision.deezerplayer.domain.entities.TopTracks.Track
 import com.renovavision.deezerplayer.domain.entities.TrackModel
 import com.renovavision.deezerplayer.tracks.databinding.TrackItemBinding
-import com.renovavision.deezerplayer.utils.BaseAdapter
-import com.renovavision.deezerplayer.utils.BaseViewHolder
-import com.renovavision.deezerplayer.utils.Dispatch
+import com.renovavision.deezerplayer.ui.uni.Dispatch
+import com.renovavision.deezerplayer.ui.utils.BaseAdapter
+import com.renovavision.deezerplayer.ui.utils.BaseViewHolder
 
 class TracksAdapter(dispatch: Dispatch) :
-    BaseAdapter<TrackEntity, TracksAdapter.TrackViewHolder>(dispatch) {
+    BaseAdapter<Track, TracksAdapter.TrackViewHolder>(dispatch) {
 
     override fun buildViewHolder(parent: ViewGroup, viewType: Int) = TrackViewHolder(
         TrackItemBinding.inflate(
@@ -22,11 +22,11 @@ class TracksAdapter(dispatch: Dispatch) :
         )
     )
 
-    override fun areItemsTheSame(oldItem: TrackEntity, newItem: TrackEntity) =
+    override fun areItemsTheSame(oldItem: Track, newItem: Track) =
         oldItem.id == newItem.id
 
     inner class TrackViewHolder(private val binding: TrackItemBinding) :
-        BaseViewHolder<TrackEntity>(binding.root) {
+        BaseViewHolder<Track>(binding.root) {
 
         override fun onCreate(dispatch: Dispatch) {
             super.onCreate(dispatch)
@@ -52,7 +52,7 @@ class TracksAdapter(dispatch: Dispatch) :
                 }
         }
 
-        override fun onBind(item: TrackEntity) {
+        override fun onBind(item: Track) {
             binding.trackView.track = TrackModel(
                 item.artist.name,
                 item.title,

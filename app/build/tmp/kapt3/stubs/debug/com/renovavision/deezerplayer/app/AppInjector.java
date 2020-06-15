@@ -4,7 +4,7 @@ import java.lang.System;
 
 @kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u0018\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\bg\u0018\u00002\u00020\u0001:\u0001\u0006J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u0005H&\u00a8\u0006\u0007"}, d2 = {"Lcom/renovavision/deezerplayer/app/AppInjector;", "", "inject", "", "app", "Lcom/renovavision/deezerplayer/app/App;", "Factory", "app_debug"})
 @javax.inject.Singleton()
-@dagger.Component(modules = {dagger.android.AndroidInjectionModule.class, com.renovavision.deezerplayer.activity.MainActivityModule.class, com.renovavision.deezerplayer.data.RepositoryModule.class, com.renovavision.deezerplayer.data.NetworkModule.class})
+@dagger.Component(modules = {dagger.android.AndroidInjectionModule.class, com.renovavision.deezerplayer.app.AppModule.class, com.renovavision.deezerplayer.activity.MainActivityModule.class, com.renovavision.deezerplayer.data.RepositoryModule.class, com.renovavision.deezerplayer.data.NetworkModule.class, com.renovavision.deezerplayer.activity.NavigationModule.class})
 public abstract interface AppInjector {
     
     public abstract void inject(@org.jetbrains.annotations.NotNull()

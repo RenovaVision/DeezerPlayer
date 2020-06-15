@@ -2,6 +2,7 @@ package com.renovavision.deezerplayer.app
 
 import android.app.Application
 import com.renovavision.deezerplayer.activity.MainActivityModule
+import com.renovavision.deezerplayer.activity.NavigationModule
 import com.renovavision.deezerplayer.data.NetworkModule
 import com.renovavision.deezerplayer.data.RepositoryModule
 import dagger.BindsInstance
@@ -14,9 +15,11 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
+        AppModule::class,
         MainActivityModule::class,
         RepositoryModule::class,
-        NetworkModule::class
+        NetworkModule::class,
+        NavigationModule::class
     ]
 )
 @Singleton

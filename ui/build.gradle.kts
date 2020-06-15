@@ -18,9 +18,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":style"))
     implementation(project(":domain"))
-    implementation(project(":utils"))
+    implementation(Deps.Androidx.liveData)
+    implementation(Deps.Kotlin.coroutines)
+    implementation(Deps.Kotlin.coroutinesAndroid)
     implementation(Deps.Androidx.material)
     implementation(Deps.Androidx.constraintlayout)
     implementation(Deps.Square.picasso)

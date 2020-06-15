@@ -12,6 +12,6 @@ public abstract interface MainActivityModule {
     com.renovavision.deezerplayer.inject.ViewModelFactory viewModelFactory);
     
     @org.jetbrains.annotations.NotNull()
-    @dagger.android.ContributesAndroidInjector(modules = {com.renovavision.deezerplayer.tracks.TracksModule.class, com.renovavision.deezerplayer.artist.ArtistModule.class, com.renovavision.deezerplayer.album.AlbumModule.class, com.renovavision.player.PlayerModule.class, com.renovavision.deezerplayer.activity.NavigationModule.class})
+    @dagger.android.ContributesAndroidInjector(modules = {com.renovavision.deezerplayer.activity.FragmentsModule.class, com.renovavision.deezerplayer.activity.ViewModelsModule.class, com.renovavision.deezerplayer.activity.NavHostFragmentModule.class})
     public abstract com.renovavision.deezerplayer.activity.MainActivity mainActivity();
 }

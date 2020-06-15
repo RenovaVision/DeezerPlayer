@@ -7,21 +7,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.renovavision.deezerplayer.domain.entities.ArtistEntity
-import com.renovavision.deezerplayer.domain.entities.PlayerModel
 import com.renovavision.deezerplayer.tracks.databinding.FragmentTopTracksBinding
-import com.renovavision.deezerplayer.utils.bindingDelegate
-import com.renovavision.deezerplayer.utils.observe
-import com.renovavision.deezerplayer.utils.onViewLifecycle
+import com.renovavision.deezerplayer.ui.utils.bindingDelegate
+import com.renovavision.deezerplayer.ui.utils.observe
+import com.renovavision.deezerplayer.ui.utils.onViewLifecycle
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
-import javax.inject.Named
 
+@ExperimentalCoroutinesApi
 class TopTracksFragment @Inject constructor(
-    private val viewModelFactory: ViewModelProvider.Factory,
-    @Named("navTopTracksToArtist")
-    private val navTopTracksToArtist: (artist: @JvmSuppressWildcards ArtistEntity) -> Unit,
-    @Named("navTopTracksToPlayer")
-    private val navTopTracksToPlayer: (track: @JvmSuppressWildcards PlayerModel) -> Unit
+    private val viewModelFactory: ViewModelProvider.Factory
 ) : Fragment(R.layout.fragment_top_tracks) {
 
     private val viewModel: TopTracksViewModel by viewModels { viewModelFactory }
@@ -61,13 +56,6 @@ class TopTracksFragment @Inject constructor(
             binding.tracksRecyclerView.visibility = if (!it.showError) View.VISIBLE else View.GONE
             binding.errorContainer.visibility = if (it.showError) View.VISIBLE else View.GONE
             binding.progress.visibility = if (it.isLoading) View.VISIBLE else View.GONE
-        }
-
-        viewModel.action.observe(this) {
-            when (it) {
-                is NavigateToArtist -> navTopTracksToArtist(it.artist)
-                is NavigateToPlayer -> navTopTracksToPlayer(it.track)
-            }
         }
     }
 }

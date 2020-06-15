@@ -14,10 +14,14 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     @Inject
+    internal lateinit var navigator: NavigatorImpl
+
+    @Inject
     internal lateinit var daggerFragmentFactory: DaggerFragmentFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
+        navigator.bind(this)
         supportFragmentManager.fragmentFactory = daggerFragmentFactory
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
@@ -31,5 +35,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private fun setupBottomNavView(navController: NavController) {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavView)
         bottomNav?.setupWithNavController(navController)
+    }
+
+    override fun onDestroy() {
+        navigator.unbind()
+        super.onDestroy()
     }
 }

@@ -8,25 +8,21 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.renovavision.deezerplayer.activity.MainActivity;
 import com.renovavision.deezerplayer.activity.MainActivityModule_MainActivity;
 import com.renovavision.deezerplayer.activity.MainActivity_MembersInjector;
-import com.renovavision.deezerplayer.activity.NavigationModule_NavAlbumToPlayerFactory;
-import com.renovavision.deezerplayer.activity.NavigationModule_NavArtistToAlbumFactory;
-import com.renovavision.deezerplayer.activity.NavigationModule_NavArtistToPlayerFactory;
-import com.renovavision.deezerplayer.activity.NavigationModule_NavHomeToPlayerFactory;
-import com.renovavision.deezerplayer.activity.NavigationModule_NavHostFragmentFactory;
-import com.renovavision.deezerplayer.activity.NavigationModule_NavTopArtistsToArtistFactory;
-import com.renovavision.deezerplayer.activity.NavigationModule_NavTopTracksToArtistFactory;
+import com.renovavision.deezerplayer.activity.NavHostFragmentModule_NavHostFragmentFactory;
+import com.renovavision.deezerplayer.activity.NavigatorImpl;
+import com.renovavision.deezerplayer.activity.NavigatorImpl_Factory;
 import com.renovavision.deezerplayer.album.AlbumFragment;
 import com.renovavision.deezerplayer.album.AlbumFragment_Factory;
 import com.renovavision.deezerplayer.album.AlbumViewModel;
 import com.renovavision.deezerplayer.album.AlbumViewModel_Factory;
-import com.renovavision.deezerplayer.artist.presentation.artistinfo.ArtistFragment;
-import com.renovavision.deezerplayer.artist.presentation.artistinfo.ArtistFragment_Factory;
-import com.renovavision.deezerplayer.artist.presentation.artistinfo.ArtistViewModel;
-import com.renovavision.deezerplayer.artist.presentation.artistinfo.ArtistViewModel_Factory;
-import com.renovavision.deezerplayer.artist.presentation.topartists.TopArtistsFragment;
-import com.renovavision.deezerplayer.artist.presentation.topartists.TopArtistsFragment_Factory;
-import com.renovavision.deezerplayer.artist.presentation.topartists.TopArtistsViewModel;
-import com.renovavision.deezerplayer.artist.presentation.topartists.TopArtistsViewModel_Factory;
+import com.renovavision.deezerplayer.artist.artistinfo.ArtistFragment;
+import com.renovavision.deezerplayer.artist.artistinfo.ArtistFragment_Factory;
+import com.renovavision.deezerplayer.artist.artistinfo.ArtistViewModel;
+import com.renovavision.deezerplayer.artist.artistinfo.ArtistViewModel_Factory;
+import com.renovavision.deezerplayer.artist.topartists.TopArtistsFragment;
+import com.renovavision.deezerplayer.artist.topartists.TopArtistsFragment_Factory;
+import com.renovavision.deezerplayer.artist.topartists.TopArtistsViewModel;
+import com.renovavision.deezerplayer.artist.topartists.TopArtistsViewModel_Factory;
 import com.renovavision.deezerplayer.data.NetworkModule_ProvideCocktailApiFactory;
 import com.renovavision.deezerplayer.data.NetworkModule_ProvideRetrofit$dataFactory;
 import com.renovavision.deezerplayer.data.api.MusicApi;
@@ -34,16 +30,16 @@ import com.renovavision.deezerplayer.data.repositories.AlbumRepositoryImpl;
 import com.renovavision.deezerplayer.data.repositories.AlbumRepositoryImpl_Factory;
 import com.renovavision.deezerplayer.data.repositories.ArtistRepositoryImpl;
 import com.renovavision.deezerplayer.data.repositories.ArtistRepositoryImpl_Factory;
-import com.renovavision.deezerplayer.data.repositories.HomeRepositoryImpl;
-import com.renovavision.deezerplayer.data.repositories.HomeRepositoryImpl_Factory;
-import com.renovavision.deezerplayer.domain.entities.ArtistEntity;
-import com.renovavision.deezerplayer.domain.entities.PlayerModel;
+import com.renovavision.deezerplayer.data.repositories.TrackRepositoryImpl;
+import com.renovavision.deezerplayer.data.repositories.TrackRepositoryImpl_Factory;
 import com.renovavision.deezerplayer.domain.usecases.GetAlbumInfo;
 import com.renovavision.deezerplayer.domain.usecases.GetAlbumInfo_Factory;
 import com.renovavision.deezerplayer.domain.usecases.GetArtistModel;
 import com.renovavision.deezerplayer.domain.usecases.GetArtistModel_Factory;
-import com.renovavision.deezerplayer.domain.usecases.GetHomeModel;
-import com.renovavision.deezerplayer.domain.usecases.GetHomeModel_Factory;
+import com.renovavision.deezerplayer.domain.usecases.GetTopArtists;
+import com.renovavision.deezerplayer.domain.usecases.GetTopArtists_Factory;
+import com.renovavision.deezerplayer.domain.usecases.GetTopTracks;
+import com.renovavision.deezerplayer.domain.usecases.GetTopTracks_Factory;
 import com.renovavision.deezerplayer.inject.DaggerFragmentFactory;
 import com.renovavision.deezerplayer.inject.ViewModelFactory;
 import com.renovavision.deezerplayer.inject.ViewModelFactory_Factory;
@@ -65,8 +61,6 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 import javax.inject.Provider;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 import retrofit2.Retrofit;
 
 @SuppressWarnings({
@@ -76,6 +70,8 @@ import retrofit2.Retrofit;
 public final class DaggerAppInjector implements AppInjector {
   private Provider<MainActivityModule_MainActivity.MainActivitySubcomponent.Factory> mainActivitySubcomponentFactoryProvider;
 
+  private Provider<NavigatorImpl> navigatorImplProvider;
+
   private Provider<File> cacheDirProvider;
 
   private Provider<String> apiUrlProvider;
@@ -84,9 +80,11 @@ public final class DaggerAppInjector implements AppInjector {
 
   private Provider<MusicApi> provideCocktailApiProvider;
 
-  private Provider<HomeRepositoryImpl> homeRepositoryImplProvider;
-
   private Provider<ArtistRepositoryImpl> artistRepositoryImplProvider;
+
+  private Provider<AppCoroutineDispatcher> appCoroutineDispatcherProvider;
+
+  private Provider<TrackRepositoryImpl> trackRepositoryImplProvider;
 
   private Provider<AlbumRepositoryImpl> albumRepositoryImplProvider;
 
@@ -114,12 +112,14 @@ public final class DaggerAppInjector implements AppInjector {
       public MainActivityModule_MainActivity.MainActivitySubcomponent.Factory get() {
         return new MainActivitySubcomponentFactory();}
     };
+    this.navigatorImplProvider = DoubleCheck.provider(NavigatorImpl_Factory.create());
     this.cacheDirProvider = InstanceFactory.createNullable(cacheDirParam);
     this.apiUrlProvider = InstanceFactory.create(apiUrlParam);
     this.provideRetrofit$dataProvider = DoubleCheck.provider(NetworkModule_ProvideRetrofit$dataFactory.create(cacheDirProvider, apiUrlProvider));
     this.provideCocktailApiProvider = NetworkModule_ProvideCocktailApiFactory.create(provideRetrofit$dataProvider);
-    this.homeRepositoryImplProvider = DoubleCheck.provider(HomeRepositoryImpl_Factory.create(provideCocktailApiProvider));
     this.artistRepositoryImplProvider = DoubleCheck.provider(ArtistRepositoryImpl_Factory.create(provideCocktailApiProvider));
+    this.appCoroutineDispatcherProvider = DoubleCheck.provider(AppCoroutineDispatcher_Factory.create());
+    this.trackRepositoryImplProvider = DoubleCheck.provider(TrackRepositoryImpl_Factory.create(provideCocktailApiProvider));
     this.albumRepositoryImplProvider = DoubleCheck.provider(AlbumRepositoryImpl_Factory.create(provideCocktailApiProvider));
   }
 
@@ -150,15 +150,17 @@ public final class DaggerAppInjector implements AppInjector {
   }
 
   private final class MainActivitySubcomponentImpl implements MainActivityModule_MainActivity.MainActivitySubcomponent {
-    private Provider<GetHomeModel> getHomeModelProvider;
-
-    private Provider<TopTracksViewModel> topTracksViewModelProvider;
+    private Provider<GetTopArtists> getTopArtistsProvider;
 
     private Provider<TopArtistsViewModel> topArtistsViewModelProvider;
 
     private Provider<GetArtistModel> getArtistModelProvider;
 
     private Provider<ArtistViewModel> artistViewModelProvider;
+
+    private Provider<GetTopTracks> getTopTracksProvider;
+
+    private Provider<TopTracksViewModel> topTracksViewModelProvider;
 
     private Provider<GetAlbumInfo> getAlbumInfoProvider;
 
@@ -168,62 +170,42 @@ public final class DaggerAppInjector implements AppInjector {
 
     private Provider<ViewModelFactory> viewModelFactoryProvider;
 
-    private Provider<MainActivity> arg0Provider;
-
-    private Provider<Function1<ArtistEntity, Unit>> navTopTracksToArtistProvider;
-
-    private Provider<Function1<PlayerModel, Unit>> navHomeToPlayerProvider;
-
-    private Provider<TopTracksFragment> topTracksFragmentProvider;
-
-    private Provider<Function1<ArtistEntity, Unit>> navTopArtistsToArtistProvider;
-
     private Provider<TopArtistsFragment> topArtistsFragmentProvider;
-
-    private Provider<Function1<Integer, Unit>> navArtistToAlbumProvider;
-
-    private Provider<Function1<PlayerModel, Unit>> navArtistToPlayerProvider;
 
     private Provider<ArtistFragment> artistFragmentProvider;
 
-    private Provider<Function1<PlayerModel, Unit>> navAlbumToPlayerProvider;
+    private Provider<TopTracksFragment> topTracksFragmentProvider;
 
     private Provider<AlbumFragment> albumFragmentProvider;
 
-    private MainActivitySubcomponentImpl(MainActivity arg0Param) {
+    private MainActivitySubcomponentImpl(MainActivity arg0) {
 
-      initialize(arg0Param);
+      initialize(arg0);
     }
 
     private Map<Class<? extends Fragment>, Provider<Fragment>> getMapOfClassOfAndProviderOfFragment(
         ) {
-      return MapBuilder.<Class<? extends Fragment>, Provider<Fragment>>newMapBuilder(6).put(NavHostFragment.class, NavigationModule_NavHostFragmentFactory.create()).put(TopTracksFragment.class, (Provider) topTracksFragmentProvider).put(TopArtistsFragment.class, (Provider) topArtistsFragmentProvider).put(ArtistFragment.class, (Provider) artistFragmentProvider).put(AlbumFragment.class, (Provider) albumFragmentProvider).put(PlayerFragment.class, (Provider) PlayerFragment_Factory.create()).build();}
+      return MapBuilder.<Class<? extends Fragment>, Provider<Fragment>>newMapBuilder(6).put(NavHostFragment.class, NavHostFragmentModule_NavHostFragmentFactory.create()).put(TopArtistsFragment.class, (Provider) topArtistsFragmentProvider).put(ArtistFragment.class, (Provider) artistFragmentProvider).put(TopTracksFragment.class, (Provider) topTracksFragmentProvider).put(AlbumFragment.class, (Provider) albumFragmentProvider).put(PlayerFragment.class, (Provider) PlayerFragment_Factory.create()).build();}
 
     private DaggerFragmentFactory getDaggerFragmentFactory() {
       return new DaggerFragmentFactory(getMapOfClassOfAndProviderOfFragment());}
 
     @SuppressWarnings("unchecked")
-    private void initialize(final MainActivity arg0Param) {
-      this.getHomeModelProvider = GetHomeModel_Factory.create((Provider) DaggerAppInjector.this.homeRepositoryImplProvider);
-      this.topTracksViewModelProvider = TopTracksViewModel_Factory.create(getHomeModelProvider);
-      this.topArtistsViewModelProvider = TopArtistsViewModel_Factory.create(getHomeModelProvider);
+    private void initialize(final MainActivity arg0) {
+      this.getTopArtistsProvider = GetTopArtists_Factory.create((Provider) DaggerAppInjector.this.artistRepositoryImplProvider);
+      this.topArtistsViewModelProvider = TopArtistsViewModel_Factory.create(getTopArtistsProvider, (Provider) DaggerAppInjector.this.navigatorImplProvider, (Provider) DaggerAppInjector.this.appCoroutineDispatcherProvider);
       this.getArtistModelProvider = GetArtistModel_Factory.create((Provider) DaggerAppInjector.this.artistRepositoryImplProvider);
-      this.artistViewModelProvider = ArtistViewModel_Factory.create(getArtistModelProvider);
+      this.artistViewModelProvider = ArtistViewModel_Factory.create(getArtistModelProvider, (Provider) DaggerAppInjector.this.navigatorImplProvider, (Provider) DaggerAppInjector.this.appCoroutineDispatcherProvider);
+      this.getTopTracksProvider = GetTopTracks_Factory.create((Provider) DaggerAppInjector.this.trackRepositoryImplProvider);
+      this.topTracksViewModelProvider = TopTracksViewModel_Factory.create(getTopTracksProvider, (Provider) DaggerAppInjector.this.navigatorImplProvider, (Provider) DaggerAppInjector.this.appCoroutineDispatcherProvider);
       this.getAlbumInfoProvider = GetAlbumInfo_Factory.create((Provider) DaggerAppInjector.this.albumRepositoryImplProvider);
-      this.albumViewModelProvider = AlbumViewModel_Factory.create(getAlbumInfoProvider);
-      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(4).put(TopTracksViewModel.class, (Provider) topTracksViewModelProvider).put(TopArtistsViewModel.class, (Provider) topArtistsViewModelProvider).put(ArtistViewModel.class, (Provider) artistViewModelProvider).put(AlbumViewModel.class, (Provider) albumViewModelProvider).build();
+      this.albumViewModelProvider = AlbumViewModel_Factory.create(getAlbumInfoProvider, (Provider) DaggerAppInjector.this.navigatorImplProvider, (Provider) DaggerAppInjector.this.appCoroutineDispatcherProvider);
+      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(4).put(TopArtistsViewModel.class, (Provider) topArtistsViewModelProvider).put(ArtistViewModel.class, (Provider) artistViewModelProvider).put(TopTracksViewModel.class, (Provider) topTracksViewModelProvider).put(AlbumViewModel.class, (Provider) albumViewModelProvider).build();
       this.viewModelFactoryProvider = ViewModelFactory_Factory.create(mapOfClassOfAndProviderOfViewModelProvider);
-      this.arg0Provider = InstanceFactory.create(arg0Param);
-      this.navTopTracksToArtistProvider = NavigationModule_NavTopTracksToArtistFactory.create(arg0Provider);
-      this.navHomeToPlayerProvider = NavigationModule_NavHomeToPlayerFactory.create(arg0Provider);
-      this.topTracksFragmentProvider = TopTracksFragment_Factory.create((Provider) viewModelFactoryProvider, navTopTracksToArtistProvider, navHomeToPlayerProvider);
-      this.navTopArtistsToArtistProvider = NavigationModule_NavTopArtistsToArtistFactory.create(arg0Provider);
-      this.topArtistsFragmentProvider = TopArtistsFragment_Factory.create((Provider) viewModelFactoryProvider, navTopArtistsToArtistProvider);
-      this.navArtistToAlbumProvider = NavigationModule_NavArtistToAlbumFactory.create(arg0Provider);
-      this.navArtistToPlayerProvider = NavigationModule_NavArtistToPlayerFactory.create(arg0Provider);
-      this.artistFragmentProvider = ArtistFragment_Factory.create((Provider) viewModelFactoryProvider, navArtistToAlbumProvider, navArtistToPlayerProvider);
-      this.navAlbumToPlayerProvider = NavigationModule_NavAlbumToPlayerFactory.create(arg0Provider);
-      this.albumFragmentProvider = AlbumFragment_Factory.create((Provider) viewModelFactoryProvider, navAlbumToPlayerProvider);
+      this.topArtistsFragmentProvider = TopArtistsFragment_Factory.create((Provider) viewModelFactoryProvider);
+      this.artistFragmentProvider = ArtistFragment_Factory.create((Provider) viewModelFactoryProvider);
+      this.topTracksFragmentProvider = TopTracksFragment_Factory.create((Provider) viewModelFactoryProvider);
+      this.albumFragmentProvider = AlbumFragment_Factory.create((Provider) viewModelFactoryProvider);
     }
 
     @Override
@@ -231,6 +213,7 @@ public final class DaggerAppInjector implements AppInjector {
       injectMainActivity(arg0);}
 
     private MainActivity injectMainActivity(MainActivity instance) {
+      MainActivity_MembersInjector.injectNavigator(instance, DaggerAppInjector.this.navigatorImplProvider.get());
       MainActivity_MembersInjector.injectDaggerFragmentFactory(instance, getDaggerFragmentFactory());
       return instance;
     }

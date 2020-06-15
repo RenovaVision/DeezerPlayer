@@ -18,10 +18,8 @@
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/inject" />
             <option value="$PROJECT_DIR$/player" />
-            <option value="$PROJECT_DIR$/style" />
             <option value="$PROJECT_DIR$/tracks" />
             <option value="$PROJECT_DIR$/ui" />
-            <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

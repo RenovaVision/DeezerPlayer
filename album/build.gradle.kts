@@ -16,13 +16,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":style"))
     implementation(project(":domain"))
     implementation(project(":inject"))
-    implementation(project(":utils"))
     implementation(project(":ui"))
     implementation(Deps.Androidx.material)
     implementation(Deps.Androidx.fragment)
+    implementation(Deps.Kotlin.coroutines)
+    implementation(Deps.Kotlin.coroutinesAndroid)
     implementation(Deps.Androidx.constraintlayout)
     implementation(Deps.Google.dagger)
     kapt(Deps.Google.daggerCompiler)

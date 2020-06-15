@@ -8,24 +8,24 @@ import retrofit2.http.Query
 interface MusicApi {
 
     @GET("chart/0/tracks")
-    suspend fun loadTopTracks(): TopTracks
+    suspend fun loadTopTracks(): TopTracksEntity
 
     @GET("chart/0/artists")
-    suspend fun loadTopArtists(): TopArtists
+    suspend fun loadTopArtists(): TopArtistsEntity
 
     @GET("artist/{id}/top")
     suspend fun loadTopArtistTracks(
         @Path("id") id: Int,
         @Query("limit") limit: Int = 50,
         @Query("index") startIndex: Int = 0
-    ): TopArtistTracks
+    ): TopArtistTracksEntity
 
     @GET("artist/{id}/albums")
-    suspend fun loadArtistAlbums(@Path("id") artistId: Int): ArtistAlbums
+    suspend fun loadArtistAlbums(@Path("id") artistId: Int): ArtistAlbumsEntity
 
     @GET("album/{id}")
-    suspend fun loadAlbumInfo(@Path("id") id: Int): AlbumInfo
+    suspend fun loadAlbumInfo(@Path("id") id: Int): AlbumDetailsEntity
 
     @GET("search/track")
-    suspend fun loadSearchResult(@Query("q") query: String): TopTracks
+    suspend fun loadSearchResult(@Query("q") query: String): TopTracksEntity
 }

@@ -2,11 +2,8 @@
 package com.renovavision.deezerplayer.album;
 
 import androidx.lifecycle.ViewModelProvider;
-import com.renovavision.deezerplayer.domain.entities.PlayerModel;
 import dagger.internal.Factory;
 import javax.inject.Provider;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 @SuppressWarnings({
     "unchecked",
@@ -15,27 +12,21 @@ import kotlin.jvm.functions.Function1;
 public final class AlbumFragment_Factory implements Factory<AlbumFragment> {
   private final Provider<ViewModelProvider.Factory> viewModelFactoryProvider;
 
-  private final Provider<Function1<PlayerModel, Unit>> navAlbumToPlayerProvider;
-
-  public AlbumFragment_Factory(Provider<ViewModelProvider.Factory> viewModelFactoryProvider,
-      Provider<Function1<PlayerModel, Unit>> navAlbumToPlayerProvider) {
+  public AlbumFragment_Factory(Provider<ViewModelProvider.Factory> viewModelFactoryProvider) {
     this.viewModelFactoryProvider = viewModelFactoryProvider;
-    this.navAlbumToPlayerProvider = navAlbumToPlayerProvider;
   }
 
   @Override
   public AlbumFragment get() {
-    return newInstance(viewModelFactoryProvider.get(), navAlbumToPlayerProvider.get());
+    return newInstance(viewModelFactoryProvider.get());
   }
 
   public static AlbumFragment_Factory create(
-      Provider<ViewModelProvider.Factory> viewModelFactoryProvider,
-      Provider<Function1<PlayerModel, Unit>> navAlbumToPlayerProvider) {
-    return new AlbumFragment_Factory(viewModelFactoryProvider, navAlbumToPlayerProvider);
+      Provider<ViewModelProvider.Factory> viewModelFactoryProvider) {
+    return new AlbumFragment_Factory(viewModelFactoryProvider);
   }
 
-  public static AlbumFragment newInstance(ViewModelProvider.Factory viewModelFactory,
-      Function1<PlayerModel, Unit> navAlbumToPlayer) {
-    return new AlbumFragment(viewModelFactory, navAlbumToPlayer);
+  public static AlbumFragment newInstance(ViewModelProvider.Factory viewModelFactory) {
+    return new AlbumFragment(viewModelFactory);
   }
 }

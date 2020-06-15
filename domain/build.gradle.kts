@@ -5,5 +5,6 @@ plugins {
 
 dependencies {
     implementation(Deps.Google.dagger)
+    implementation(Deps.Kotlin.coroutines)
     kapt(Deps.Google.daggerCompiler)
 }

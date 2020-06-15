@@ -24,7 +24,5 @@ include(
     ":domain",
     ":player",
     ":inject",
-    ":utils",
-    ":ui",
-    ":style"
+    ":ui"
 )

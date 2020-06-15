@@ -4,7 +4,7 @@
             "outputFile": "D:\\android\\AndroidStudioProjects\\DeezerPlayer\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\ee4ad6b7986879f8c34e9b6066ef97c0\\appcompat-1.1.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\4b34f1cf8efb6ae07e4d9ab35181e29f\\appcompat-1.1.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\707f99bbbc9eca5f520c1529f1ada727\\material-1.1.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\2522be17b7c33fbc43e753e4c86f3925\\material-1.1.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",

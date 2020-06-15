@@ -7,10 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import com.renovavision.deezerplayer.domain.entities.PlayerModel
-import com.renovavision.deezerplayer.utils.DeezerPlayer
-import com.renovavision.deezerplayer.utils.SimpleSeekBarChangeListener
-import com.renovavision.deezerplayer.utils.bindingDelegate
-import com.renovavision.deezerplayer.utils.onViewLifecycle
+import com.renovavision.deezerplayer.ui.utils.*
 import com.renovavision.player.databinding.FragmentPlayerBinding
 import javax.inject.Inject
 

@@ -2,12 +2,8 @@
 package com.renovavision.deezerplayer.tracks;
 
 import androidx.lifecycle.ViewModelProvider;
-import com.renovavision.deezerplayer.domain.entities.ArtistEntity;
-import com.renovavision.deezerplayer.domain.entities.PlayerModel;
 import dagger.internal.Factory;
 import javax.inject.Provider;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 @SuppressWarnings({
     "unchecked",
@@ -16,33 +12,21 @@ import kotlin.jvm.functions.Function1;
 public final class TopTracksFragment_Factory implements Factory<TopTracksFragment> {
   private final Provider<ViewModelProvider.Factory> viewModelFactoryProvider;
 
-  private final Provider<Function1<ArtistEntity, Unit>> navTopTracksToArtistProvider;
-
-  private final Provider<Function1<PlayerModel, Unit>> navTopTracksToPlayerProvider;
-
-  public TopTracksFragment_Factory(Provider<ViewModelProvider.Factory> viewModelFactoryProvider,
-      Provider<Function1<ArtistEntity, Unit>> navTopTracksToArtistProvider,
-      Provider<Function1<PlayerModel, Unit>> navTopTracksToPlayerProvider) {
+  public TopTracksFragment_Factory(Provider<ViewModelProvider.Factory> viewModelFactoryProvider) {
     this.viewModelFactoryProvider = viewModelFactoryProvider;
-    this.navTopTracksToArtistProvider = navTopTracksToArtistProvider;
-    this.navTopTracksToPlayerProvider = navTopTracksToPlayerProvider;
   }
 
   @Override
   public TopTracksFragment get() {
-    return newInstance(viewModelFactoryProvider.get(), navTopTracksToArtistProvider.get(), navTopTracksToPlayerProvider.get());
+    return newInstance(viewModelFactoryProvider.get());
   }
 
   public static TopTracksFragment_Factory create(
-      Provider<ViewModelProvider.Factory> viewModelFactoryProvider,
-      Provider<Function1<ArtistEntity, Unit>> navTopTracksToArtistProvider,
-      Provider<Function1<PlayerModel, Unit>> navTopTracksToPlayerProvider) {
-    return new TopTracksFragment_Factory(viewModelFactoryProvider, navTopTracksToArtistProvider, navTopTracksToPlayerProvider);
+      Provider<ViewModelProvider.Factory> viewModelFactoryProvider) {
+    return new TopTracksFragment_Factory(viewModelFactoryProvider);
   }
 
-  public static TopTracksFragment newInstance(ViewModelProvider.Factory viewModelFactory,
-      Function1<ArtistEntity, Unit> navTopTracksToArtist,
-      Function1<PlayerModel, Unit> navTopTracksToPlayer) {
-    return new TopTracksFragment(viewModelFactory, navTopTracksToArtist, navTopTracksToPlayer);
+  public static TopTracksFragment newInstance(ViewModelProvider.Factory viewModelFactory) {
+    return new TopTracksFragment(viewModelFactory);
   }
 }

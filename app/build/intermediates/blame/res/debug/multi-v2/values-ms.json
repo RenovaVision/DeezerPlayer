@@ -4,7 +4,7 @@
             "outputFile": "D:\\android\\AndroidStudioProjects\\DeezerPlayer\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ms\\values-ms.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\204b4cb5a7a949ef7754a4c1c11c4e8c\\navigation-ui-2.2.1\\res\\values-ms\\values-ms.xml",
+                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\4aa91a077822228c6031d731410b1744\\navigation-ui-2.2.1\\res\\values-ms\\values-ms.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\ee4ad6b7986879f8c34e9b6066ef97c0\\appcompat-1.1.0\\res\\values-ms\\values-ms.xml",
+                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\4b34f1cf8efb6ae07e4d9ab35181e29f\\appcompat-1.1.0\\res\\values-ms\\values-ms.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\657f245d00e4e5fbf1aadebfd5a80279\\core-1.2.0\\res\\values-ms\\values-ms.xml",
+                    "source": "C:\\Users\\alexg\\.gradle\\caches\\transforms-2\\files-2.1\\e5054f6b025532e28097b68e50299d06\\core-1.2.0\\res\\values-ms\\values-ms.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

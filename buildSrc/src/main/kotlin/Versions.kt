@@ -7,6 +7,7 @@ object Deps {
         const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
         const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
         const val recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
+        const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
         const val navFrag = "androidx.navigation:navigation-fragment-ktx:${PluginVersions.nav}"
         const val navUi = "androidx.navigation:navigation-ui-ktx:${PluginVersions.nav}"
     }
@@ -32,6 +33,13 @@ object Deps {
         const val retrofitConverterMoshi =
             "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
         const val picasso = "com.squareup.picasso:picasso:2.71828"
+    }
+
+    object Kotlin {
+        const val coroutines =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+        const val coroutinesAndroid =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     }
 
     object Test {
@@ -65,6 +73,7 @@ private object Versions {
     const val dagger = "2.27"
     const val moshi = "1.9.2"
     const val fragment = "1.2.3"
+    const val coroutines = "1.3.6"
     const val okhttp = "4.4.1"
     const val retrofit = "2.8.1"
 }

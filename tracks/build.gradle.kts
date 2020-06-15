@@ -19,10 +19,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":style"))
     implementation(project(":domain"))
     implementation(project(":inject"))
-    implementation(project(":utils"))
     implementation(project(":ui"))
     implementation(Deps.Androidx.material)
     implementation(Deps.Androidx.fragment)

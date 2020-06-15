@@ -2,10 +2,10 @@ package com.renovavision.deezerplayer.data
 
 import com.renovavision.deezerplayer.data.repositories.AlbumRepositoryImpl
 import com.renovavision.deezerplayer.data.repositories.ArtistRepositoryImpl
-import com.renovavision.deezerplayer.data.repositories.HomeRepositoryImpl
+import com.renovavision.deezerplayer.data.repositories.TrackRepositoryImpl
 import com.renovavision.deezerplayer.domain.repositories.AlbumRepository
 import com.renovavision.deezerplayer.domain.repositories.ArtistRepository
-import com.renovavision.deezerplayer.domain.repositories.HomeRepository
+import com.renovavision.deezerplayer.domain.repositories.TrackRepository
 import dagger.Binds
 import dagger.Module
 
@@ -19,5 +19,5 @@ interface RepositoryModule {
     fun artistRepository(artistRepository: ArtistRepositoryImpl): ArtistRepository
 
     @Binds
-    fun homeRepository(homeRepository: HomeRepositoryImpl): HomeRepository
+    fun trackRepository(trackRepository: TrackRepositoryImpl): TrackRepository
 }

@@ -11,20 +11,29 @@ import javax.inject.Provider;
     "rawtypes"
 })
 public final class MainActivity_MembersInjector implements MembersInjector<MainActivity> {
+  private final Provider<NavigatorImpl> navigatorProvider;
+
   private final Provider<DaggerFragmentFactory> daggerFragmentFactoryProvider;
 
-  public MainActivity_MembersInjector(
+  public MainActivity_MembersInjector(Provider<NavigatorImpl> navigatorProvider,
       Provider<DaggerFragmentFactory> daggerFragmentFactoryProvider) {
+    this.navigatorProvider = navigatorProvider;
     this.daggerFragmentFactoryProvider = daggerFragmentFactoryProvider;
   }
 
-  public static MembersInjector<MainActivity> create(
+  public static MembersInjector<MainActivity> create(Provider<NavigatorImpl> navigatorProvider,
       Provider<DaggerFragmentFactory> daggerFragmentFactoryProvider) {
-    return new MainActivity_MembersInjector(daggerFragmentFactoryProvider);}
+    return new MainActivity_MembersInjector(navigatorProvider, daggerFragmentFactoryProvider);}
 
   @Override
   public void injectMembers(MainActivity instance) {
+    injectNavigator(instance, navigatorProvider.get());
     injectDaggerFragmentFactory(instance, daggerFragmentFactoryProvider.get());
+  }
+
+  @InjectedFieldSignature("com.renovavision.deezerplayer.activity.MainActivity.navigator")
+  public static void injectNavigator(MainActivity instance, NavigatorImpl navigator) {
+    instance.navigator = navigator;
   }
 
   @InjectedFieldSignature("com.renovavision.deezerplayer.activity.MainActivity.daggerFragmentFactory")

@@ -1,79 +1,76 @@
 package com.renovavision.deezerplayer.tracks
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.renovavision.deezerplayer.domain.entities.ArtistEntity
+import com.renovavision.deezerplayer.domain.CoroutineDispatcherProvider
+import com.renovavision.deezerplayer.domain.entities.Artist
 import com.renovavision.deezerplayer.domain.entities.PlayerModel
-import com.renovavision.deezerplayer.domain.entities.TopTracksEntity.*
-import com.renovavision.deezerplayer.domain.usecases.GetHomeModel
-import com.renovavision.deezerplayer.utils.*
+import com.renovavision.deezerplayer.domain.entities.TopTracks.*
+import com.renovavision.deezerplayer.domain.usecases.GetTopTracks
+import com.renovavision.deezerplayer.ui.uni.Action
+import com.renovavision.deezerplayer.ui.uni.AsyncAction
+import com.renovavision.deezerplayer.ui.uni.UniViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class NavigateToArtist(val artist: ArtistEntity) : ViewEvent
-data class NavigateToPlayer(val track: PlayerModel) : ViewEvent
+object LoadTopTracks : AsyncAction
+data class ArtistClicked(val artist: Artist) : AsyncAction
+data class TrackClicked(val track: PlayerModel) : AsyncAction
 
-object LoadTopTracks : Event
-data class ArtistClicked(val artist: ArtistEntity) : Event
-data class TrackClicked(val track: PlayerModel) : Event
+object LoadTopTracksStarted : Action
+object LoadTopTracksFailed : Action
+data class LoadTopTracksSuccess(val topTracks: List<Track>) : Action
 
 data class State(
     val isLoading: Boolean,
     val showError: Boolean,
-    val topTracks: List<TrackEntity> = emptyList()
+    val topTracks: List<Track> = emptyList()
 )
 
-class TopTracksViewModel @Inject constructor(private val useCase: GetHomeModel) : BaseViewModel() {
+@ExperimentalCoroutinesApi
+class TopTracksViewModel @Inject constructor(
+    private val useCase: GetTopTracks,
+    private val tracksNavigator: TrackNavigator,
+    dispatcherProvider: CoroutineDispatcherProvider
+) : UniViewModel<State>(dispatcherProvider.ioDispatcher()) {
 
-    private val loadTopTracks = MutableLiveData<State>()
-    private val actions = SingleLiveEvent<ViewEvent>()
+    @ExperimentalCoroutinesApi
+    override fun getDefaultState() = State(isLoading = true, showError = false)
 
-    val state: LiveData<State>
-        get() = loadTopTracks
+    override fun reduce(state: State, action: Action) =
+        when (action) {
+            is LoadTopTracksStarted -> state.copy(isLoading = true)
+            is LoadTopTracksFailed -> state.copy(isLoading = true, showError = false)
+            is LoadTopTracksSuccess -> state.copy(
+                isLoading = false,
+                showError = false,
+                topTracks = action.topTracks
+            )
+            else -> state
+        }
 
-    val action: LiveData<ViewEvent>
-        get() = actions
-
-    override fun dispatch(dispatchable: Dispatchable) {
-        when (dispatchable) {
-            is LoadTopTracks -> loadTracks()
-            is ArtistClicked -> actions.value =
-                NavigateToArtist(
-                    dispatchable.artist
-                )
-            is TrackClicked -> actions.value = NavigateToPlayer(dispatchable.track)
+    override fun async(state: State, asyncAction: AsyncAction) {
+        when (asyncAction) {
+            is ArtistClicked -> tracksNavigator.navTopTracksToArtist(asyncAction.artist)
+            is TrackClicked -> tracksNavigator.navTopTracksToPlayer(asyncAction.track)
+            is LoadTopTracks -> loadTopTracks(state)
         }
     }
 
-    private fun loadTracks() {
-        loadTopTracks.value = State(
-            isLoading = true,
-            showError = false
-        )
+    private fun loadTopTracks(state: State) {
+        if (state.topTracks.isEmpty()) {
+            dispatch(LoadTopTracksStarted)
 
-        viewModelScope.launch(CoroutineExceptionHandler { _, _ ->
-            loadTopTracks.value =
-                State(
-                    isLoading = false,
-                    showError = true
-                )
-        }) {
-            val topTracks = useCase.getTopTracks()
+            viewModelScope.launch(CoroutineExceptionHandler { _, _ ->
+                dispatch(LoadTopTracksFailed)
+            }) {
+                val topTracks = useCase.getTopTracks()
 
-            when (topTracks.data.isNotEmpty()) {
-                true -> loadTopTracks.value =
-                    State(
-                        isLoading = false,
-                        showError = false,
-                        topTracks = topTracks.data
-                    )
-                else -> loadTopTracks.value =
-                    State(
-                        isLoading = false,
-                        showError = true
-                    )
+                when (topTracks.data.isNotEmpty()) {
+                    true -> dispatch(LoadTopTracksSuccess(topTracks.data))
+                    else -> dispatch(LoadTopTracksFailed)
+                }
             }
         }
     }

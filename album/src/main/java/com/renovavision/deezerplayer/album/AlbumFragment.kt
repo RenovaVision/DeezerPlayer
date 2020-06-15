@@ -8,17 +8,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.renovavision.deezerplayer.album.databinding.FragmentAlbumBinding
-import com.renovavision.deezerplayer.domain.entities.PlayerModel
-import com.renovavision.deezerplayer.utils.bindingDelegate
-import com.renovavision.deezerplayer.utils.observe
-import com.renovavision.deezerplayer.utils.onViewLifecycle
+import com.renovavision.deezerplayer.ui.utils.bindingDelegate
+import com.renovavision.deezerplayer.ui.utils.observe
+import com.renovavision.deezerplayer.ui.utils.onViewLifecycle
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
-import javax.inject.Named
 
+@ExperimentalCoroutinesApi
 class AlbumFragment @Inject constructor(
-    private val viewModelFactory: ViewModelProvider.Factory,
-    @Named("navAlbumToPlayer")
-    private val navAlbumToPlayer: (track: @JvmSuppressWildcards PlayerModel) -> Unit
+    private val viewModelFactory: ViewModelProvider.Factory
 ) : Fragment(R.layout.fragment_album) {
 
     private val viewModel: AlbumViewModel by viewModels { viewModelFactory }
@@ -39,7 +37,7 @@ class AlbumFragment @Inject constructor(
         onViewLifecycle({ binding.errorContainer }, {
             errorMessage = getString(R.string.can_not_load_album)
             clickListener =
-                View.OnClickListener { albumId?.let { viewModel.dispatch(LoadAlbumInfo(it)) } }
+                View.OnClickListener { albumId?.let { viewModel.dispatch(LoadAlbumDetails(it)) } }
         }, {
             clickListener = null
         })
@@ -49,7 +47,7 @@ class AlbumFragment @Inject constructor(
             adapter = albumTracksAdapter
         })
 
-        albumId?.let { viewModel.dispatch(LoadAlbumInfo(it)) }
+        albumId?.let { viewModel.dispatch(LoadAlbumDetails(it)) }
     }
 
     override fun onStart() {
@@ -60,12 +58,6 @@ class AlbumFragment @Inject constructor(
             binding.recyclerView.visibility = if (!it.showError) View.VISIBLE else View.GONE
             binding.errorContainer.visibility = if (it.showError) View.VISIBLE else View.GONE
             binding.progress.visibility = if (it.isLoading) View.VISIBLE else View.GONE
-        }
-
-        viewModel.click.observe(this) {
-            when (it) {
-                is NavigateToPlayer -> navAlbumToPlayer(it.track)
-            }
         }
     }
 }
