@@ -6,7 +6,7 @@
     android:layout_margin="5dp"
     app:cardBackgroundColor="@color/white">
 
-    <com.renovavision.deezerplayer.ui.ArtistView
+    <com.renovavision.deezerplayer.ui.views.ArtistView
         android:id="@+id/artistView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

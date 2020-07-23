@@ -1,4 +1,4 @@
-package com.renovavision.deezerplayer.ui
+package com.renovavision.deezerplayer.ui.views
 
 import android.content.Context
 import android.util.AttributeSet

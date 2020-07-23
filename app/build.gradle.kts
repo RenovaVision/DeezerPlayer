@@ -53,7 +53,6 @@ dependencies {
     implementation(Deps.Androidx.core)
     implementation(Deps.Androidx.fragment)
     implementation(Deps.Androidx.navFrag)
-    implementation(Deps.Androidx.navUi)
     implementation(Deps.Androidx.material)
     implementation(Deps.Androidx.constraintlayout)
     implementation(Deps.Google.dagger)

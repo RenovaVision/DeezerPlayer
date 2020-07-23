@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.renovavision.deezerplayer.album.AlbumFragment
 import com.renovavision.deezerplayer.artist.artistinfo.ArtistFragment
 import com.renovavision.deezerplayer.artist.topartists.TopArtistsFragment
+import com.renovavision.deezerplayer.home.HomeFragment
 import com.renovavision.deezerplayer.inject.FragmentKey
 import com.renovavision.deezerplayer.tracks.TopTracksFragment
 import com.renovavision.player.PlayerFragment
@@ -15,6 +16,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @Module
 interface FragmentsModule {
+
+    @Binds
+    @IntoMap
+    @FragmentKey(HomeFragment::class)
+    fun homeFragment(homeFragment: HomeFragment): Fragment
 
     @Binds
     @IntoMap

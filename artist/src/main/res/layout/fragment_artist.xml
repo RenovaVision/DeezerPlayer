@@ -37,7 +37,7 @@
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
-                <com.renovavision.deezerplayer.ui.ArtistView
+                <com.renovavision.deezerplayer.ui.views.ArtistView
                     android:id="@+id/artistView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <com.renovavision.deezerplayer.ui.ErrorMessageView
+        <com.renovavision.deezerplayer.ui.views.ErrorMessageView
             android:id="@+id/error_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
