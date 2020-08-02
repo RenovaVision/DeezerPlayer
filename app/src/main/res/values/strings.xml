@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DeezerPlayer</string>
+
+    <string name="home">Home</string>
+    <string name="top_artists">Top Artists</string>
+    <string name="top_tracks">Top Tracks</string>
+</resources>
